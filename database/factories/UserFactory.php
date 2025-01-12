@@ -2,43 +2,36 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
+  protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
-        ];
-    }
+  public function definition(): array
+  {
+    // Tạo ngày sinh ngẫu nhiên
+    $dateOfBirth = $this->faker->date();
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
+    // Tính tuổi từ ngày sinh
+    $age = Carbon::parse($dateOfBirth)->age;
+
+    return [
+      'name' => $this->faker->name(),
+      'email' => $this->faker->unique()->safeEmail(),
+      'email_verified_at' => now(),
+      'password' => bcrypt('password'), // mật khẩu mặc định
+      'phone' => $this->faker->phoneNumber(),
+      'address' => $this->faker->address(),
+      'date_of_birth' => $dateOfBirth,
+      'status' => 1,
+      'avatar' => $this->faker->imageUrl(100, 100, 'people'),
+      'gender' => $this->faker->randomElement(['M', 'F', 'O']),
+      'remember_token' => Str::random(10),
+      'age' => $age,  // Thêm trường age
+    ];
+  }
 }
