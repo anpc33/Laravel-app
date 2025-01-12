@@ -11,7 +11,7 @@
   @foreach($tableHead as $key => $val)
   <td>{{ $item->{$key} }}</td>
   @endforeach
-  <x-action :module="$module" :item="$item"  :data="$data"/>
+  <x-action :module="$module" :item="$item" :data="$data" />
 </tr>
 @endforeach
 @endif

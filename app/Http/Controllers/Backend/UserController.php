@@ -26,7 +26,7 @@ class UserController extends BaseController
 
   protected function getUpdateRequest()
   {
-    return new UpdateRequest(); // Chỉ định request dành riêng cho update
+    return new UpdateRequest();
   }
 
   protected function getModule()
@@ -61,7 +61,7 @@ class UserController extends BaseController
       'name' => "Fullname",
       'email' => "Email",
       'phone' => "Phone",
-      'age' => "Tuổi",
+      'age' => "Age",
     ];
   }
 
@@ -82,4 +82,3 @@ class UserController extends BaseController
     ];
   }
 }
-

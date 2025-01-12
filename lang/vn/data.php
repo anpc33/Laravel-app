@@ -1,7 +1,7 @@
 <?php
   return [
     'gender' => [
-        0 => 'Choose Gender',
+        '' => 'Choose Gender',
         1 => 'Male',
         2 => 'Female',
     ],

@@ -22,7 +22,7 @@ class UserService extends BaseService
 
   protected function getSearchFields(): array
   {
-    return ['name', 'phone', 'email'];
+    return ['name', 'email'];
   }
 
   protected function getPerpage(): int
@@ -39,25 +39,4 @@ class UserService extends BaseService
   {
     return [];
   }
-
-  // protected function preparePayload(){
-  //   return $this->handleGender()->handleName()->handleImage();
-  // }
-
-  // public function handleGender(){
-  //   $this->payload['gender'] = ($this->payload['gender'] == 0) ? 'Male' : 'Female';
-  //   return $this;
-  // }
-
-  // public function handleName(){
-  //   $this->payload['name'] = $this->payload['name'].' fix';
-  //   return $this;
-  // }
-
-  // public function handleImage(){
-  //   $this->payload['avatar'] = 'duong dan anh';
-  //   return $this;
-  // }
-
-
 }

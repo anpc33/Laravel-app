@@ -3,8 +3,6 @@
 namespace App\Http\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
-
 
 class BaseRepository
 {
@@ -37,15 +35,20 @@ class BaseRepository
       : $this->model->create($payload);
   }
 
+  public function delete(int $id): bool
+  {
+    return (bool) $this->model->destroy($id);
+  }
+
+
   public function paginate($params = [])
   {
     return $this->model
-              ->keyword($params)
-              ->simpleFilter($params)
-              ->complexFilter($params)
-              ->orderBy($params['sort'][0], $params['sort'][1])
-              ->paginate($params['perpage'])->withQueryString();
+      ->keyword($params)
+      ->simpleFilter($params)
+      ->complexFilter($params)
+      ->dateRangeFilter($params) // Sử dụng scope lọc thời gian
+      ->orderBy($params['sort'][0], $params['sort'][1])
+      ->paginate($params['perpage'])->withQueryString();
   }
 }
-
-

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\Backend\UserCatalogueController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +30,6 @@ Route::middleware(['CheckLogin'])->group(function () {
     6. put: /user/{user} --> user.update
     7. delete: /user/{user} ---> user.destroy
   */
-
-
-  Route::get('user/catalogue/index', [UserCatalogueController::class, 'index'])->name('user_catalogue.index');
-  Route::get('user/catalogue/create', [UserCatalogueController::class, 'create'])->name('user_catalogue.create');
-  Route::post('user/catalogue/create', [UserCatalogueController::class, 'store'])->name('user_catalogue.store');
 });
 
 

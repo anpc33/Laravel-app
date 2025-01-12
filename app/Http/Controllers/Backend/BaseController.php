@@ -66,10 +66,11 @@ abstract class BaseController extends Controller
     ));
   }
 
-  public function store(Request $request){
+  public function store(Request $request)
+  {
     $rules = $this->getStoreRequest()->rules();
     $request->validate($rules);
-    if($this->service->save($request)){
+    if ($this->service->save($request)) {
       return redirect()->route($this->module . '.index')->with('success', 'Tạo bản ghi thành công');
     }
     return redirect()->route($this->module . '.index')->with('error', 'Có lỗi xảy ra! Hãy thử lại');
@@ -79,7 +80,7 @@ abstract class BaseController extends Controller
   {
     $rules = $this->getUpdateRequest()->rules();
     $request->validate($rules);
-    if($this->service->save($request, $id)){
+    if ($this->service->save($request, $id)) {
       return redirect()->route($this->module . '.index')->with('success', 'Cập nhật bản ghi thành công');
     }
     return redirect()->route($this->module . '.index')->with('error', 'Có lỗi xảy ra! Hãy thử lại');
@@ -93,5 +94,4 @@ abstract class BaseController extends Controller
     }
     return redirect()->route($this->module . '.index')->with('error', 'Xóa bản ghi không thành công!');
   }
-
 }

@@ -21,22 +21,36 @@
   <input type="text" class="form-control me-3 " style="width: 120px" id="date-range" name="date_range"
     placeholder="Chọn khoảng thời gian" value="{{ request('date_range') }}" />
 
+  <!-- Muốn tìm kiếm khoảng thời gian theo -->
+  @php
+  $dateFilterOptions = [
+  'created_at' => 'Ngày tạo',
+  'updated_at' => 'Ngày cập nhật',
+  'date_of_birth' => 'Ngày sinh',
+  ];
+  @endphp
+  <!-- Muốn tìm kiếm khoảng thời gian theo -->
+  <select class="form-control me-3" name="date_filter_field">
+    <option value="0">Lọc theo thời gian</option>
+    @foreach($dateFilterOptions as $key => $val)
+    <option value="{{ $key }}" {{ request('date_filter_field')==$key ? 'selected' : '' }}>{{ $val }}</option>
+    @endforeach
+  </select>
+
+
 
   <!-- Sắp xếp -->
   @php
-      $sortBy = [
-        'name_asc' => 'Tên (A-Z)',
-        'name_desc' => 'Tên (Z - A)',
-      ];
+  $sortBy = [
+  'name_asc' => 'Tên (A-Z)',
+  'name_desc' => 'Tên (Z - A)',
+  ];
   @endphp
   <select class="form-control me-3" name="sort_by">
     <option value="0">Sắp xếp</option>
     @foreach($sortBy as $key => $val)
-    <option value="{{ $key }}" {{ request('sort_by')== $key ? 'selected' : '' }}>{{ $val }}</option>
+    <option value="{{ $key }}" {{ request('sort_by')==$key ? 'selected' : '' }}>{{ $val }}</option>
     @endforeach
-    {{-- <option value="name_desc" {{ request('sort_by')=='name_desc' ? 'selected' : '' }}>Tên (Z - A)</option>
-    <option value="date_asc" {{ request('sort_by')=='date_asc' ? 'selected' : '' }}>Ngày tạo (Cũ nhất)</option>
-    <option value="date_desc" {{ request('sort_by')=='date_desc' ? 'selected' : '' }}>Ngày tạo (Mới nhất)</option> --}}
   </select>
 
   <!-- Tìm kiếm -->

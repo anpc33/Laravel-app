@@ -25,7 +25,8 @@ abstract class BaseService
   }
 
 
-  private function paginationAgrument($request){
+  private function paginationAgrument($request)
+  {
     $sortBy = ($request->input('sort_by')) ? explode('_', $request->input('sort_by')) : ['id', 'desc'];
 
     return [
@@ -35,11 +36,15 @@ abstract class BaseService
         'q' => $request->input('keyword'),
         'field' => $this->getSearchFields()
       ],
-      'simpleFilter' => call_user_func_array('array_merge', array_map(function($item) use ($request){
-          return [$item => $request->input($item)];
+      'simpleFilter' => call_user_func_array('array_merge', array_map(function ($item) use ($request) {
+        return [$item => $request->input($item)];
       }, $this->getSelectSimpleFilter())),
       'complexFilter' => [
         'age' => $request->input('age'),
+      ],
+      'dateFilter' => [
+        'date_range' => $request->input('date_range'),
+        'date_filter_field' => $request->input('date_filter_field'),
       ],
     ];
 
@@ -49,21 +54,22 @@ abstract class BaseService
   public function pagination($request)
   {
     $agrument = $this->paginationAgrument($request);
-
-
     return $this->repository->paginate($agrument);
   }
 
-  protected function setPayload($request){
+  protected function setPayload($request)
+  {
     $this->payload = $request->except($this->getExcept());
     return $this;
   }
 
-  protected function getPayload(){
+  protected function getPayload()
+  {
     return $this->payload;
   }
 
-  protected function preparePayload(){
+  protected function preparePayload()
+  {
     return $this;
   }
 
@@ -73,8 +79,8 @@ abstract class BaseService
     DB::beginTransaction();
     try {
       $payload = $this->setPayload($request)
-                      ->preparePayload()
-                      ->getPayload();
+        ->preparePayload()
+        ->getPayload();
 
       $data = $this->repository->save($payload, $id);
 
@@ -114,6 +120,4 @@ abstract class BaseService
   {
     return $this->repository->all();
   }
-
-
 }
