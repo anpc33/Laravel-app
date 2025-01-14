@@ -79,8 +79,7 @@ trait Query
       }
     }
 
-    // In ra câu lệnh SQL thực thi
-    dd($query->toSql(), $query->getBindings());
+    // dd($query->toSql(), $query->getBindings());
 
     return $query;
   }

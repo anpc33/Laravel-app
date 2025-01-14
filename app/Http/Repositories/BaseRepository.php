@@ -40,6 +40,14 @@ class BaseRepository
     return (bool) $this->model->destroy($id);
   }
 
+  public function deleteByIds(array $ids)
+{
+    // Xóa các bản ghi có ID trong danh sách $ids
+    return $this->model->whereIn('id', $ids)->delete();
+}
+
+
+
 
   public function paginate($params = [])
   {

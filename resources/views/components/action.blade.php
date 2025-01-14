@@ -2,8 +2,12 @@
 
 <td>
   <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck1" @if (isset($item['status']) &&
-      $item['status']==1) checked @endif>
+    <input class="form-check-input updateByField" data-id="{{ $item->id }}" data-value="{{ $item->status }}"
+      data-field="status" data-model="{{ $module }}" type="checkbox" role="switch" id="SwitchCheck1"
+      @if(isset($item->status) && $item->status == 2)
+    checked
+    @endif
+    >
   </div>
 </td>
 

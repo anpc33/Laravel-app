@@ -5,7 +5,7 @@
 <tr>
   <th scope="row">
     <div class="form-check">
-      <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
+      <input class="form-check-input fs-15 record-checkbox" type="checkbox" name="checkAll" data-model="{{ $module }}" value="{{ $item->id }}">
     </div>
   </th>
   @foreach($tableHead as $key => $val)

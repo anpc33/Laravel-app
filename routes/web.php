@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Ajax\AjaxDashboardController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\UserController;
 
@@ -32,7 +33,8 @@ Route::middleware(['CheckLogin'])->group(function () {
   */
 });
 
-
+Route::post('ajax/ajaxUpdateByField', [AjaxDashboardController::class, 'ajaxUpdateByField']);
+Route::post('ajax/deleteRecords', [AjaxDashboardController::class, 'deleteRecords']);
 
 
 Route::get('/login', [AuthController::class, 'CheckLog'])->name('login');

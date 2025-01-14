@@ -47,7 +47,6 @@ abstract class BaseService
         'date_filter_field' => $request->input('date_filter_field'),
       ],
     ];
-
   }
 
 
@@ -119,5 +118,51 @@ abstract class BaseService
   public function getAll()
   {
     return $this->repository->all();
+  }
+
+
+  public function updateByField($payload = [], string $repository = '')
+  {
+    try {
+      DB::beginTransaction();
+      $repositoryInstance = app($repository);
+      $update[$payload['field']] = $payload['value'] == 1 ? 2 : 1;
+      $modelId = $payload['id'];
+      $repositoryInstance->save($update, $modelId);
+      DB::commit();
+      return true;
+    } catch (\Exception $e) {
+      DB::rollBack();
+      Log::error("Lỗi xóa dữ liệu: " . $e->getMessage());
+      // throw $e
+      return false;
+    }
+  }
+
+
+  public function deleteByField($payload = [], string $repository = '')
+  {
+    try {
+      DB::beginTransaction();
+
+      $repositoryInstance = app($repository); // Khởi tạo instance của repository
+
+      // Lấy danh sách các ID từ payload
+      $ids = $payload['ids'];
+
+      // Kiểm tra nếu không có ID nào được truyền vào
+      if (empty($ids)) {
+        return false; // Trả về false nếu không có bản ghi nào được chọn
+      }
+
+      // Xóa các bản ghi theo ID
+      $repositoryInstance->deleteByIds($ids);
+
+      DB::commit();
+      return true; // Trả về true nếu xóa thành công
+    } catch (\Exception $e) {
+      DB::rollBack();
+      Log::error("Lỗi xóa dữ liệu: " . $e->getMessage());
+    }
   }
 }
